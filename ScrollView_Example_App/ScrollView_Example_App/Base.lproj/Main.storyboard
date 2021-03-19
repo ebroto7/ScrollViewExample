@@ -27,7 +27,7 @@
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r7F-Sb-1Sl">
                                         <rect key="frame" x="0.0" y="54" width="374" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HzK-4k-n0O">
                                         <rect key="frame" x="0.0" y="108" width="374" height="30"/>
@@ -44,6 +44,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fyz-6V-PEO">
                                                 <rect key="frame" x="200" y="0.0" width="174" height="30"/>
                                                 <state key="normal" title="Register"/>
+                                                <connections>
+                                                    <segue destination="cTD-Nn-4Xs" kind="presentation" id="mP0-V6-dXv"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -56,6 +59,9 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="fNd-DH-OCk"/>
                                 </constraints>
                                 <state key="normal" title="Login"/>
+                                <connections>
+                                    <segue destination="ouX-Dl-Jmw" kind="show" id="qlW-uz-0a2"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -80,7 +86,7 @@
             <objects>
                 <viewController id="cTD-Nn-4Xs" customClass="RegisterViewController" customModule="ScrollView_Example_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DaZ-kF-DEj">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="aaE-3o-yVp"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -100,6 +106,7 @@
                         <viewLayoutGuide key="safeArea" id="DPn-W0-FRO"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="3Gi-OR-DZD"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U5X-ec-Scb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
