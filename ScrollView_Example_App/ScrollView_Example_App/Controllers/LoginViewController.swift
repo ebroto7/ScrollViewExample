@@ -18,6 +18,22 @@ class LoginViewController: UIViewController {
     
     @IBAction func LoginbuttonTouched(_ sender: Any) {
         
+        saveUserAndPassword()
+    }
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        loadUserAndPassword()
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapGesture(_ :)))
+        self.view.addGestureRecognizer(tapGestureRecognizer)
+        
+    }
+    
+    func saveUserAndPassword() {
+        
         if let pass = passwordTextField.text {
         password = pass
         }
@@ -29,11 +45,10 @@ class LoginViewController: UIViewController {
         
         KeychainService.savePassword(service: "pass", account: "pass", data: password)
         KeychainService.savePassword(service: "user", account: "user", data: user)
+        
     }
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    func loadUserAndPassword() {
         
         if let pass = KeychainService.loadPassword(service: "pass", account: "pass") {
             password = pass
@@ -47,16 +62,7 @@ class LoginViewController: UIViewController {
        
         userNameTextField.text = user
         print("2 - load userName = \(user)")
-        
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapGesture(_ :)))
-        //        tapGestureRecognizer.delegate = self
-        //        self.view.isUserInteractionEnabled = true
-        self.view.addGestureRecognizer(tapGestureRecognizer)
-        
     }
-    
-    
-    
     
     
     @objc func tapGesture(_ : UITapGestureRecognizer) {
