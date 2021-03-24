@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ScrollView_Example_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="ScrollView_Example_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -137,7 +137,7 @@
                                                     <constraint firstAttribute="height" constant="60" id="5Wo-4s-Y9O"/>
                                                 </constraints>
                                             </stackView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Inc-Jf-daf">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bamboo" translatesAutoresizingMaskIntoConstraints="NO" id="Inc-Jf-daf">
                                                 <rect key="frame" x="15" y="78" width="384" height="300"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="300" id="B1k-Zm-GaJ"/>
@@ -166,7 +166,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
-                                                    <action selector="documentIDTextfield:" destination="cTD-Nn-4Xs" eventType="editingDidEnd" id="Myf-kJ-cKA"/>
+                                                    <action selector="documentIDTextfield:" destination="cTD-Nn-4Xs" eventType="editingChanged" id="tqu-on-62b"/>
                                                 </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ka-mw-DMh">
@@ -238,10 +238,15 @@ Choose your Username and Password</string>
                         </constraints>
                     </view>
                     <size key="freeformSize" width="414" height="1200"/>
+                    <connections>
+                        <outlet property="dateTextField" destination="wM1-Xh-Eio" id="cGp-a8-USF"/>
+                        <outlet property="registerButton" destination="kbg-wr-UNu" id="dzZ-fK-sII"/>
+                        <outlet property="scrollView" destination="bE4-1K-8mI" id="1TB-S9-ah8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d4s-t0-l0D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1958" y="833"/>
+            <point key="canvasLocation" x="1962" y="1017"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="cef-fB-Lor">
@@ -250,10 +255,88 @@ Choose your Username and Password</string>
                     <view key="view" contentMode="scaleToFill" id="PIa-w5-LtS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" translatesAutoresizingMaskIntoConstraints="NO" id="vqF-k1-jUs">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                            </mapView>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yyL-Av-NU9" userLabel="containerButtons">
+                                <rect key="frame" x="87" y="822" width="240" height="30"/>
+                                <subviews>
+                                    <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zGN-MJ-U5O">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="30"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="BsU-bf-Zmm">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </view>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <blurEffect style="systemMaterial"/>
+                                    </visualEffectView>
+                                    <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="39x-Yy-PHe" userLabel="buttons Stack View">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8QK-Pu-6ZO">
+                                                <rect key="frame" x="0.0" y="0.0" width="104" height="30"/>
+                                                <state key="normal" title="standard"/>
+                                                <connections>
+                                                    <action selector="buttonGridOptions:" destination="ouX-Dl-Jmw" eventType="touchUpInside" id="RCB-oB-nMO"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ldR-ix-kq6">
+                                                <rect key="frame" x="104" y="0.0" width="71.5" height="30"/>
+                                                <state key="normal" title="satèlit"/>
+                                                <connections>
+                                                    <action selector="buttonGridOptions:" destination="ouX-Dl-Jmw" eventType="touchUpInside" id="b3U-wN-u6R"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JzU-Co-ddP">
+                                                <rect key="frame" x="175.5" y="0.0" width="64.5" height="30"/>
+                                                <state key="normal" title="relleu"/>
+                                                <connections>
+                                                    <action selector="buttonGridOptions:" destination="ouX-Dl-Jmw" eventType="touchUpInside" id="rKX-9H-cfU"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="007-yx-3sE"/>
+                                    <constraint firstAttribute="height" constant="30" id="5Tg-Xb-ev6"/>
+                                    <constraint firstAttribute="bottom" secondItem="39x-Yy-PHe" secondAttribute="bottom" id="JJu-7e-9Rp"/>
+                                    <constraint firstItem="zGN-MJ-U5O" firstAttribute="top" secondItem="yyL-Av-NU9" secondAttribute="top" id="Jet-hu-k2l"/>
+                                    <constraint firstAttribute="trailing" secondItem="39x-Yy-PHe" secondAttribute="trailing" id="OzD-Ha-GRL"/>
+                                    <constraint firstItem="39x-Yy-PHe" firstAttribute="leading" secondItem="yyL-Av-NU9" secondAttribute="leading" id="WPz-QB-BhE"/>
+                                    <constraint firstAttribute="bottom" secondItem="zGN-MJ-U5O" secondAttribute="bottom" id="jVX-3C-b3R"/>
+                                    <constraint firstItem="zGN-MJ-U5O" firstAttribute="leading" secondItem="yyL-Av-NU9" secondAttribute="leading" id="lhD-Pa-fCI"/>
+                                    <constraint firstAttribute="trailing" secondItem="zGN-MJ-U5O" secondAttribute="trailing" id="mTw-Sq-WY2"/>
+                                    <constraint firstItem="39x-Yy-PHe" firstAttribute="top" secondItem="yyL-Av-NU9" secondAttribute="top" id="umA-Mh-A4q"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="DPn-W0-FRO"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vqF-k1-jUs" firstAttribute="leading" secondItem="DPn-W0-FRO" secondAttribute="leading" id="DjF-AN-sFe"/>
+                            <constraint firstItem="DPn-W0-FRO" firstAttribute="trailing" secondItem="vqF-k1-jUs" secondAttribute="trailing" id="ZTd-8Z-fXx"/>
+                            <constraint firstItem="DPn-W0-FRO" firstAttribute="bottom" secondItem="vqF-k1-jUs" secondAttribute="bottom" id="bCX-15-IzS"/>
+                            <constraint firstItem="DPn-W0-FRO" firstAttribute="bottom" secondItem="yyL-Av-NU9" secondAttribute="bottom" constant="10" id="o7E-km-4ej"/>
+                            <constraint firstItem="yyL-Av-NU9" firstAttribute="centerX" secondItem="PIa-w5-LtS" secondAttribute="centerX" id="xql-fg-SqO"/>
+                            <constraint firstItem="vqF-k1-jUs" firstAttribute="top" secondItem="DPn-W0-FRO" secondAttribute="top" id="yJx-aG-46q"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="3Gi-OR-DZD"/>
+                    <connections>
+                        <outlet property="ButtonsVisualEffect" destination="zGN-MJ-U5O" id="Y0c-t9-tEz"/>
+                        <outlet property="buttonsStackView" destination="39x-Yy-PHe" id="08Y-Cn-mQj"/>
+                        <outlet property="containerButtonsView" destination="yyL-Av-NU9" id="CP6-ne-q8D"/>
+                        <outlet property="mapView" destination="vqF-k1-jUs" id="Xu1-h3-iQS"/>
+                        <outlet property="predetMapTypeButton" destination="8QK-Pu-6ZO" id="s0A-5t-NiH"/>
+                        <outlet property="relleuMapTypeButton" destination="JzU-Co-ddP" id="lrl-K7-dQN"/>
+                        <outlet property="satelitMapTypeButton" destination="ldR-ix-kq6" id="7hs-ei-ooX"/>
+                        <outletCollection property="buttonsContainer" destination="JzU-Co-ddP" collectionClass="NSMutableArray" id="gCk-qV-wn8"/>
+                        <outletCollection property="buttonsContainer" destination="ldR-ix-kq6" collectionClass="NSMutableArray" id="ttO-Lq-vXS"/>
+                        <outletCollection property="buttonsContainer" destination="8QK-Pu-6ZO" collectionClass="NSMutableArray" id="ujs-qb-1Gz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U5X-ec-Scb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -277,6 +360,7 @@ Choose your Username and Password</string>
         </scene>
     </scenes>
     <resources>
+        <image name="bamboo" width="734" height="456"/>
         <image name="multiply.circle" catalog="system" width="128" height="121"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

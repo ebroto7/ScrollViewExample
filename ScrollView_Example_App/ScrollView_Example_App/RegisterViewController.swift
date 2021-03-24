@@ -12,8 +12,8 @@
 //1- afegir component scrollView. Ajustar contrains al marge de la pamntalla (0,0,0,0) => aqui generarem errors de constrains i els arrosegarem fins que afegim el primer component de la pantalla.
 //2- obligatoriament s'afegeix una vista "contentView" on afegir tot el que necessito a la meva app. En el nostre cas, una "stackView"
 //3- ¡¡¡IMPORTANT!!! afegir 5 constrains
-        //1ª contrain: cap a on no volem fer scroll, en el nostre cas lateralment, enllaço la "contentView" (arrosegar amb botó dret de contentView a "Frame Layout Guide") i seleccionar "equal widths"(1)
-        //2ª a 5ª constrain: enllaço la "contentView" (arrosegar amb botó dret de contentView a "Content Layout Guide") i seleccionar "leading"(2), "trailing"(3), "bottom"(4), "top"(5)
+//1ª contrain: cap a on no volem fer scroll, en el nostre cas lateralment, enllaço la "contentView" (arrosegar amb botó dret de contentView a "Frame Layout Guide") i seleccionar "equal widths"(1)
+//2ª a 5ª constrain: enllaço la "contentView" (arrosegar amb botó dret de contentView a "Content Layout Guide") i seleccionar "leading"(2), "trailing"(3), "bottom"(4), "top"(5)
 //4- elminiar les constants de les constrains "constant = 0" i "multiplayer = 0"
 //5- afegir el primer component de la pantalla => aqui desaparexein els errors de constrains
 // SCROLLVIEW OK!!
@@ -27,7 +27,13 @@
 import Foundation
 import UIKit
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: UIViewController, UITextFieldDelegate {
+    
+    let datePicker = UIDatePicker()
+    
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var registerButton: UIButton!
+    @IBOutlet weak var dateTextField: UITextField!
     
     
     
@@ -37,10 +43,146 @@ class RegisterViewController: UIViewController {
     @IBAction func registerButton(_ sender: Any) {
     }
     
-    @IBAction func documentIDTextfield(_ sender: Any) {
+    @IBAction func documentIDTextfield(_ sender: UITextField) {
+        //        print(sender.text)
+        if let text = sender.text {
+            registerButton.isEnabled = isValidID(text)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        registerButton.isEnabled = false
+        registerKeyboardNotifications()     // si poso aquesta funció que genera els observadors de teclat al "viewDidLoad" haig de generar un "deinit" (observar al final de la class) per ser coherents. Si genereo els observadors quan carrego la pantalla, els haig de destruir quan la tanco.         //si poso la funció al viewDidAppear, me l'hauré de carregar al viewDidDisappear.
+        
+        setupDataPicker()
+        
+        
+        
     }
+    
+    
+    func isValidID(_ documentId: String) -> Bool {
+        guard let lastChar = documentId.last else { return false }
+        
+        if lastChar.isLetter && documentId.count == 9 {
+            var documentCopy = documentId
+            documentCopy.removeLast()
+            
+            if let numberPart: Int = Int(documentCopy) {
+                let remainder = numberPart % 23
+                let calculatedLetter: String = letterConversionList[remainder]
+                return calculatedLetter == String(lastChar)
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
+    
+    let letterConversionList = ["T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"]
+    
+    deinit {
+        removeKeyBoardNotifications()
+    }
+    
+    
+    func registerKeyboardNotifications() {      // escoltem si el teclat està present o no
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {     //li diem la tasca que ha de realitzar quan tenim el teclat present
+        guard let userInfo = notification.userInfo else { return }
+        var keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+        
+        
+        let newLongInset: CGFloat = self.scrollView.contentInset.bottom + keyboardFrame.height
+        let insets: UIEdgeInsets = UIEdgeInsets(top: self.scrollView.contentInset.top, left: self.scrollView.contentInset.left, bottom: newLongInset, right: self.scrollView.contentInset.right)
+        
+        self.scrollView.contentInset = insets
+        self.scrollView.scrollIndicatorInsets = insets
+        
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {     //li diem la tasca que ha de realitzar quan es deixa de veure el teclat
+        print("has tret el teclat")
+        //
+        //        guard let userInfo = notification.userInfo else { return }
+        //        var keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        //        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+        //
+        //
+        //        var newInset: UIEdgeInsets = scrollView.contentInset
+        //        newInset.bottom = keyboardFrame.size.height
+        ////        let newLongInset: CGFloat = self.scrollView.contentInset.bottom - keyboardFrame.height
+        ////        let insets: UIEdgeInsets = UIEdgeInsets(top: self.scrollView.contentInset.top, left: self.scrollView.contentInset.left, bottom: newLongInset, right: self.scrollView.contentInset.right)
+        //
+        //        self.scrollView.contentInset = newInset
+        //        self.scrollView.scrollIndicatorInsets = newInset
+        
+        self.scrollView.contentInset = UIEdgeInsets.zero
+        self.scrollView.scrollIndicatorInsets = UIEdgeInsets.zero
+        
+    }
+    
+    func removeKeyBoardNotifications() {        //deixem d'escoltar les notificacions "si el tecalt apareix o despareix"
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func setupDataPicker() {
+        
+        //formate date
+        datePicker.datePickerMode = .date
+        datePicker.sizeToFit()
+        //        let datePicker = self.dateTextField.inputView as? UIDatePicker
+        datePicker.preferredDatePickerStyle = .wheels
+        self.dateTextField.inputView = datePicker
+        
+        let toolBar = UIToolbar()
+        
+        toolBar.barStyle = UIBarStyle.default
+        
+        toolBar.isTranslucent = true
+        //      toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(donePressed))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(donePressed))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        toolBar.sizeToFit()
+        
+        dateTextField.inputAccessoryView = toolBar
+        dateTextField.delegate = self
+        
+    }
+    
+    @objc  func donePressed(){
+        
+        //    dateTextField.inputView = datePicker
+        view.endEditing(true)
+        print("button done")
+        
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        
+        //    formatter.timeZone = .current
+        
+        dateTextField.text = formatter.string(from: datePicker.date)
+        
+    }
+    @objc func cancelPressed(){
+        view.endEditing(true)
+        print("button cancel")
+        
+    }
+    
+    
+    
+    
 }
