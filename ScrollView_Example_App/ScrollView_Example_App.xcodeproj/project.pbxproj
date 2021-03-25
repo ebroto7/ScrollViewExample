@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C565BE0C260B64E800FC1FA9 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C565BE0B260B64E800FC1FA9 /* KeychainService.swift */; };
+		C565BE11260CB52600FC1FA9 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C565BE10260CB52600FC1FA9 /* BaseViewController.swift */; };
 		C59A3D342604980A001E487C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59A3D332604980A001E487C /* AppDelegate.swift */; };
 		C59A3D362604980A001E487C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59A3D352604980A001E487C /* SceneDelegate.swift */; };
 		C59A3D382604980B001E487C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59A3D372604980B001E487C /* LoginViewController.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		C565BE0B260B64E800FC1FA9 /* KeychainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		C565BE10260CB52600FC1FA9 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		C59A3D302604980A001E487C /* ScrollView_Example_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScrollView_Example_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C59A3D332604980A001E487C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C59A3D352604980A001E487C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,6 +56,7 @@
 		C565BE0E260B652C00FC1FA9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C565BE10260CB52600FC1FA9 /* BaseViewController.swift */,
 				C59A3D372604980B001E487C /* LoginViewController.swift */,
 				C59A3D4826049AC8001E487C /* RegisterViewController.swift */,
 				C59A3D4B26049CF5001E487C /* MapViewController.swift */,
@@ -167,6 +170,7 @@
 				C59A3D362604980A001E487C /* SceneDelegate.swift in Sources */,
 				C59A3D4C26049CF5001E487C /* MapViewController.swift in Sources */,
 				C59A3D4926049AC8001E487C /* RegisterViewController.swift in Sources */,
+				C565BE11260CB52600FC1FA9 /* BaseViewController.swift in Sources */,
 				C565BE0C260B64E800FC1FA9 /* KeychainService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

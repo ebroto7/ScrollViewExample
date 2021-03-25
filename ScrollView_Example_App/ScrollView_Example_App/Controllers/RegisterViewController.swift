@@ -27,7 +27,7 @@
 import Foundation
 import UIKit
 
-class RegisterViewController: UIViewController, UITextFieldDelegate {
+class RegisterViewController: BaseViewController, UITextFieldDelegate {
     
     let datePicker = UIDatePicker()
     
@@ -54,12 +54,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         registerButton.isEnabled = false
-        registerKeyboardNotifications()     // si poso aquesta funció que genera els observadors de teclat al "viewDidLoad" haig de generar un "deinit" (observar al final de la class) per ser coherents. Si genereo els observadors quan carrego la pantalla, els haig de destruir quan la tanco.         //si poso la funció al viewDidAppear, me l'hauré de carregar al viewDidDisappear.
-        
         setupDataPicker()
-        
-        
-        
+    
     }
     
     
@@ -84,55 +80,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     let letterConversionList = ["T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"]
     
-    deinit {
-        removeKeyBoardNotifications()
-    }
-    
-    
-    func registerKeyboardNotifications() {      // escoltem si el teclat està present o no
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {     //li diem la tasca que ha de realitzar quan tenim el teclat present
-        guard let userInfo = notification.userInfo else { return }
-        var keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
-        
-        
-        let newLongInset: CGFloat = self.scrollView.contentInset.bottom + keyboardFrame.height
-        let insets: UIEdgeInsets = UIEdgeInsets(top: self.scrollView.contentInset.top, left: self.scrollView.contentInset.left, bottom: newLongInset, right: self.scrollView.contentInset.right)
-        
-        self.scrollView.contentInset = insets
-        self.scrollView.scrollIndicatorInsets = insets
-        
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {     //li diem la tasca que ha de realitzar quan es deixa de veure el teclat
-        print("has tret el teclat")
-        //
-        //        guard let userInfo = notification.userInfo else { return }
-        //        var keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
-        //        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
-        //
-        //
-        //        var newInset: UIEdgeInsets = scrollView.contentInset
-        //        newInset.bottom = keyboardFrame.size.height
-        ////        let newLongInset: CGFloat = self.scrollView.contentInset.bottom - keyboardFrame.height
-        ////        let insets: UIEdgeInsets = UIEdgeInsets(top: self.scrollView.contentInset.top, left: self.scrollView.contentInset.left, bottom: newLongInset, right: self.scrollView.contentInset.right)
-        //
-        //        self.scrollView.contentInset = newInset
-        //        self.scrollView.scrollIndicatorInsets = newInset
-        
-        self.scrollView.contentInset = UIEdgeInsets.zero
-        self.scrollView.scrollIndicatorInsets = UIEdgeInsets.zero
-        
-    }
-    
-    func removeKeyBoardNotifications() {        //deixem d'escoltar les notificacions "si el tecalt apareix o despareix"
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
+   
     
     func setupDataPicker() {
         
@@ -181,8 +129,42 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         print("button cancel")
         
     }
+      
     
+    @objc override func keyboardWillShow(notification: NSNotification) {     //li diem la tasca que ha de realitzar quan tenim el teclat present
+        guard let userInfo = notification.userInfo else { return }
+        var keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+        
+        
+        let newLongInset: CGFloat = self.scrollView.contentInset.bottom + keyboardFrame.height
+        let insets: UIEdgeInsets = UIEdgeInsets(top: self.scrollView.contentInset.top, left: self.scrollView.contentInset.left, bottom: newLongInset, right: self.scrollView.contentInset.right)
+        
+        self.scrollView.contentInset = insets
+        self.scrollView.scrollIndicatorInsets = insets
+        
+    }
     
-    
-    
+    @objc override func keyboardWillHide(notification: NSNotification) {     //li diem la tasca que ha de realitzar quan es deixa de veure el teclat
+        print("has tret el teclat")
+        //
+        //        guard let userInfo = notification.userInfo else { return }
+        //        var keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        //        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+        //
+        //
+        //        var newInset: UIEdgeInsets = scrollView.contentInset
+        //        newInset.bottom = keyboardFrame.size.height
+        ////        let newLongInset: CGFloat = self.scrollView.contentInset.bottom - keyboardFrame.height
+        ////        let insets: UIEdgeInsets = UIEdgeInsets(top: self.scrollView.contentInset.top, left: self.scrollView.contentInset.left, bottom: newLongInset, right: self.scrollView.contentInset.right)
+        //
+        //        self.scrollView.contentInset = newInset
+        //        self.scrollView.scrollIndicatorInsets = newInset
+        
+        self.scrollView.contentInset = UIEdgeInsets.zero
+        self.scrollView.scrollIndicatorInsets = UIEdgeInsets.zero
+        
+    }
+  
 }
+

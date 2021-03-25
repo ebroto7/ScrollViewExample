@@ -73,12 +73,14 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NuU-Oa-QPr" secondAttribute="trailing" constant="20" id="Ias-Vd-hmh"/>
                             <constraint firstItem="NuU-Oa-QPr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Kss-JI-XkO"/>
                             <constraint firstItem="NuU-Oa-QPr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Z4t-S0-cgQ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="oMn-XC-hjg" secondAttribute="bottom" constant="50" id="rPs-lW-4l0"/>
+                            <constraint firstAttribute="bottom" secondItem="oMn-XC-hjg" secondAttribute="bottom" constant="84" id="rPs-lW-4l0"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Lq3-AP-Cad"/>
                     <connections>
+                        <outlet property="loginBotomConstraint" destination="rPs-lW-4l0" id="PZU-LA-OtY"/>
                         <outlet property="passwordTextField" destination="r7F-Sb-1Sl" id="6dX-pr-EM8"/>
+                        <outlet property="stackViewCenterYConstraint" destination="FIe-MN-ezP" id="FKz-k0-VZj"/>
                         <outlet property="userNameTextField" destination="e7n-YR-5aU" id="ooc-je-3Ta"/>
                     </connections>
                 </viewController>

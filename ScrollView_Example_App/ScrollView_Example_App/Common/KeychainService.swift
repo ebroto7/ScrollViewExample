@@ -22,7 +22,13 @@ let kSecMatchLimitOneValue = NSString(format: kSecMatchLimitOne)
 
 class KeychainService: NSObject {
     
-    class func updatePassword(service: String, account:String, data: String) {
+    
+    // "class func" per no haver de generar una instancia amb la funció dintre
+    class func updateString(key: KeychainKeys, data: String) {
+        
+        let account = "my_account"
+        let service = key.rawValue
+        
         if let dataFromString: Data = data.data(using: String.Encoding.utf8, allowLossyConversion: false) {
             
             // Instantiate a new default keychain query
@@ -39,7 +45,10 @@ class KeychainService: NSObject {
     }
     
     
-    class func removePassword(service: String, account:String) {
+    class func removeString(key: KeychainKeys) {
+        
+        let account = "my_account"
+        let service = key.rawValue
         
         // Instantiate a new default keychain query
         let keychainQuery: NSMutableDictionary = NSMutableDictionary(objects: [kSecClassGenericPasswordValue, service, account, kCFBooleanTrue], forKeys: [kSecClassValue, kSecAttrServiceValue, kSecAttrAccountValue, kSecReturnDataValue])
@@ -54,7 +63,11 @@ class KeychainService: NSObject {
     }
     
     
-    class func savePassword(service: String, account:String, data: String) {
+    class func saveString(key: KeychainKeys, data: String) {
+        
+        let account = "my_account"
+        let service = key.rawValue
+        
         if let dataFromString = data.data(using: String.Encoding.utf8, allowLossyConversion: false) {
             
             // Instantiate a new default keychain query
@@ -71,10 +84,13 @@ class KeychainService: NSObject {
         }
     }
     
-    class func loadPassword(service: String, account:String) -> String? {
+    class func loadPassword(key: KeychainKeys) -> String? {
         // Instantiate a new default keychain query
         // Tell the query to return a result
         // Limit our results to one item
+        let account = "my_account"
+        let service = key.rawValue
+        
         let keychainQuery: NSMutableDictionary = NSMutableDictionary(objects: [kSecClassGenericPasswordValue, service, account, kCFBooleanTrue, kSecMatchLimitOneValue], forKeys: [kSecClassValue, kSecAttrServiceValue, kSecAttrAccountValue, kSecReturnDataValue, kSecMatchLimitValue])
         
         var dataTypeRef :AnyObject?
@@ -94,4 +110,10 @@ class KeychainService: NSObject {
         return contentsOfKeychain
     }
     
+}
+
+
+enum KeychainKeys: String {
+    case user
+    case password
 }
