@@ -100,7 +100,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="1112"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="w4k-jP-wkf" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="905.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="929"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vPh-p6-5b7" userLabel="stack principal">
                                                 <rect key="frame" x="15" y="8" width="384" height="60"/>
@@ -194,14 +194,24 @@ Choose your Username and Password</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ETt-ie-Rpd" userLabel="passwordAlertLabel">
+                                                <rect key="frame" x="15" y="739" width="384" height="13.5"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="13.5" id="RKS-pS-PFS"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" By continuing you indicate that you agree to Terms of Service and Acknowledge our Privacy Policy." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJI-zw-nmN">
-                                                <rect key="frame" x="15" y="739" width="384" height="81.5"/>
+                                                <rect key="frame" x="15" y="762.5" width="384" height="81.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbg-wr-UNu" userLabel="Register">
-                                                <rect key="frame" x="15" y="830.5" width="384" height="40"/>
+                                                <rect key="frame" x="15" y="854" width="384" height="40"/>
                                                 <color key="backgroundColor" red="0.66870470019999995" green="1" blue="0.5065086499" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="wop-nN-id4"/>
@@ -247,6 +257,8 @@ Choose your Username and Password</string>
                     <size key="freeformSize" width="414" height="1200"/>
                     <connections>
                         <outlet property="dateTextField" destination="wM1-Xh-Eio" id="cGp-a8-USF"/>
+                        <outlet property="passwordAlertLabel" destination="ETt-ie-Rpd" id="U4Y-A6-dcm"/>
+                        <outlet property="passwordTextField" destination="eP3-MQ-rnz" id="lci-TN-LuI"/>
                         <outlet property="registerButton" destination="kbg-wr-UNu" id="dzZ-fK-sII"/>
                         <outlet property="scrollView" destination="bE4-1K-8mI" id="1TB-S9-ah8"/>
                     </connections>

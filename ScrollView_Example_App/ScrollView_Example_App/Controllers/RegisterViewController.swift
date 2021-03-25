@@ -35,12 +35,28 @@ class RegisterViewController: BaseViewController, UITextFieldDelegate {
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var dateTextField: UITextField!
     
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var passwordAlertLabel: UILabel!
     
     
     @IBAction func CancelButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     @IBAction func registerButton(_ sender: Any) {
+        guard let pass = passwordTextField.text else { return }
+        
+        let (isValid, errorMessage) = isValidPassword(pass)
+        if isValid == true {
+            passwordAlertLabel.isHidden = false
+            passwordAlertLabel.text = "valid pass"
+            passwordAlertLabel.backgroundColor = .green
+        } else {
+            passwordAlertLabel.isHidden = false
+            passwordAlertLabel.text = errorMessage
+            passwordAlertLabel.backgroundColor = .red
+        }
+
+          
     }
     
     @IBAction func documentIDTextfield(_ sender: UITextField) {
@@ -53,9 +69,11 @@ class RegisterViewController: BaseViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        passwordAlertLabel.isHidden = true
+        
         registerButton.isEnabled = false
         setupDataPicker()
-    
+        
     }
     
     
@@ -70,6 +88,7 @@ class RegisterViewController: BaseViewController, UITextFieldDelegate {
                 let remainder = numberPart % 23
                 let calculatedLetter: String = letterConversionList[remainder]
                 return calculatedLetter == String(lastChar)
+                
             } else {
                 return false
             }
@@ -78,9 +97,42 @@ class RegisterViewController: BaseViewController, UITextFieldDelegate {
         }
     }
     
+    
+    
+    
+    func isValidPassword(_ password: String) -> (Bool, String) {
+        
+        var isValid = true
+        var resultMessage = String()
+        
+        if password.count < 6 {
+            resultMessage += "Tu password no tiene 6 caracteres."
+            isValid = false
+        }
+        
+        if password.rangeOfCharacter(from: CharacterSet.uppercaseLetters) == nil {
+            resultMessage += "Tu password no tiene 6 caracteres."
+            isValid = false
+        }
+        
+        
+        if password.rangeOfCharacter(from: CharacterSet.alphanumerics) == nil {
+            resultMessage += "Tu password no tiene caracteres especiales."
+            isValid = false
+        }
+        
+        if password.rangeOfCharacter(from: CharacterSet.symbols) == nil {
+            resultMessage += "Tu password no tiene símbolos."
+            isValid = false
+        }
+        
+        return (isValid, resultMessage)
+    }
+    
+    
     let letterConversionList = ["T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"]
     
-   
+    
     
     func setupDataPicker() {
         
@@ -129,7 +181,7 @@ class RegisterViewController: BaseViewController, UITextFieldDelegate {
         print("button cancel")
         
     }
-      
+    
     
     @objc override func keyboardWillShow(notification: NSNotification) {     //li diem la tasca que ha de realitzar quan tenim el teclat present
         guard let userInfo = notification.userInfo else { return }
@@ -165,6 +217,6 @@ class RegisterViewController: BaseViewController, UITextFieldDelegate {
         self.scrollView.scrollIndicatorInsets = UIEdgeInsets.zero
         
     }
-  
+    
 }
 
